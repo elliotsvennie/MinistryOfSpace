@@ -34,7 +34,7 @@ class SpacesController < ApplicationController
     @space = Space.new(space_attributes)
     
     if @space.save
-      SpaceMailer.new_space(@space).deliver_now
+      SpacesMailer.new_space(@space).deliver_now
     else
       render "new"
     end

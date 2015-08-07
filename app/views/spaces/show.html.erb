@@ -2,16 +2,43 @@
   Rent a desk at <%= @space.name %>
 <% end %>
 
+<div class="show">
+  
+  <div class="slideshow">
+    <div class="large">
+      <% @space.photos.each do |photo| %>
+        <div data-thumb="<%= photo.photo.url(:thumb) %>" style="background-image: url(<%= photo.photo.url(:large) %>)">
+        </div>
+      <% end %>
+    </div>
+    
+    <div class="info">
+      <h1><%= @space.name %></h1>
 
-<h1><%= @space.name %></h1>
+      <%= simple_format @space.address %>
+      
+      <% if @space.description.present? %>
+        <%= simple_format @space.description %>
+      <% end %>
 
-<%= simple_format @space.address %>
+    </div> 
+    
+  </div>
 
-<p><%= @space.latitude %>, <%= @space.longitude %></p>
+  <div class="details">
+    <div id="map_detail" data-lat="<%= @space.latitude %>" data-lng="<%= @space.longitude %>"></div>   
 
-<p><%= quid @space.price_in_pounds %></p>
 
-<h2>Contact</h2>
-<p><%= @space.phone_number %></p>
-<p><%= mail_to @space.email %></p>
+    
 
+    <div class="price">
+      <%= quid @space.price_in_pounds %> <span>per desk per month</span>
+    </div>
+    
+    <div class="contact">
+      <p><span>Tel:</span> <%= @space.phone_number %></p>
+      <p><span>Email:</span> <%= mail_to @space.email %></p>
+    </div>
+  </div>
+
+</div>

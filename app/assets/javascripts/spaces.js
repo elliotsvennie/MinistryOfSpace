@@ -7,6 +7,28 @@ $(document).ready(function () {
     radioClass: 'iradio_flat-blue'
   });
   
+  function createMarker(space) {
+    var marker = L.marker(new L.LatLng(space.latitude, space.longitude), {
+      icon: L.mapbox.marker.icon({
+        'marker-symbol': 'building', 
+        'marker-color': '1176d6'
+      }),
+      title: space.name
+    });
+    
+    marker.bindPopup(space.name, {
+      closeButton: false
+    }).on('mouseover', function (e) {
+      this.openPopup();
+    }).on('mouseout', function (e) {
+      this.closePopup();
+    }).on("click", function () {
+      window.open("/" + space.slug);
+    });
+    
+    return marker;
+  }
+  
   if ($("#map").length > 0) {
     var map = L.mapbox.map('map')
               .setView([51.50722, -0.12750], 12)
@@ -15,30 +37,34 @@ $(document).ready(function () {
     var markers = new L.MarkerClusterGroup();
     
     for (var i = 0; i < spaces.length; i++) {
-      var space = spaces[i];
-      var marker = L.marker(new L.LatLng(space.latitude, space.longitude), {
-        icon: L.mapbox.marker.icon({
-          'marker-symbol': 'building', 
-          'marker-color': '1176d6'
-        }),
-        title: space.name
-      });
-      
-      marker.bindPopup(space.name, {
-        closeButton: false
-      }).on('mouseover', function (e) {
-        this.openPopup();
-      }).on('mouseout', function (e) {
-        this.closePopup();
-      }).on("click", function () {
-        window.open("/" + space.slug);
-      });
-      
+      var marker = createMarker(spaces[i]);      
       markers.addLayer(marker);
     }
     
     map.addLayer(markers);
   } 
+  
+  if ($("#map_detail").length > 0) {
+    var lat = $("#map_detail").data("lat");
+    var lng = $("#map_detail").data("lng");
+
+    var map = L.mapbox.map('map_detail')
+              .setView([lat, lng], 16)
+              .addLayer(L.mapbox.tileLayer(mapId));
+              
+    var marker = L.marker(new L.LatLng(lat, lng), {
+      icon: L.mapbox.marker.icon({
+        'marker-symbol': 'building', 
+        'marker-color': '1176d6'
+      }),
+      title: "hi"
+    });
+    
+    map.addLayer(marker);
+
+      
+  }
+
   
   if ($("#slider").length > 0) {
     var slider = document.getElementById("slider");
@@ -84,5 +110,13 @@ $(document).ready(function () {
     })
     
   }
+  
+  $(".slideshow .large").slick({
+    dots: true,
+    arrows: false,
+    customPaging: function (slider, i) {
+      return "<div style='background-image: url(" + $(".slick-slide").eq(i).data("thumb") + ")'></div>";
+    }
+  });
 
 });

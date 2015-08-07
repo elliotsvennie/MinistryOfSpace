@@ -15,4 +15,5 @@
 //= require nouislider.min
 //= require wnumb.min
 //= require icheck.min
+//= require slick.min
 //= require spaces

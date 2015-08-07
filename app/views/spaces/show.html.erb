@@ -38,6 +38,9 @@
     <div class="contact">
       <p><span>Tel:</span> <%= @space.phone_number %></p>
       <p><span>Email:</span> <%= mail_to @space.email %></p>
+      <% if @space.twitter.present? %>
+      <p><span>Twitter:</span> <%= link_to "@" + @space.twitter, "http://www.twitter.com/" + @space.twitter %></p>
+      <% end %>
     </div>
   </div>
 

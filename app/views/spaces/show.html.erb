@@ -1,0 +1,17 @@
+<% content_for :page_title do %>
+  Rent a desk at <%= @space.name %>
+<% end %>
+
+
+<h1><%= @space.name %></h1>
+
+<%= simple_format @space.address %>
+
+<p><%= @space.latitude %>, <%= @space.longitude %></p>
+
+<p><%= quid @space.price_in_pounds %></p>
+
+<h2>Contact</h2>
+<p><%= @space.phone_number %></p>
+<p><%= mail_to @space.email %></p>
+

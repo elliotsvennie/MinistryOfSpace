@@ -1,0 +1,180 @@
+@import "flexbox";
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #333;
+}
+
+::-webkit-input-placeholder {
+   color: #ccc;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: #ccc;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #ccc;  
+}
+
+:-ms-input-placeholder {  
+   color: #ccc;  
+}
+
+article.application {
+  min-height: 100vh;
+  @include flexbox;
+  @include flex-flow(column nowrap);
+}
+
+header {
+  @include flex(0 0 60px);
+  @include flexbox;
+  @include flex-flow(row nowrap);
+  @include justify-content(space-between);  
+  @include align-items(center); 
+  padding: 0 20px;
+    
+  h1 img {
+    width: 134px;
+  } 
+}
+
+.button {
+  background: #2FBF42;
+  color: white;
+  text-decoration: none;
+  padding: 7px 12px 6px;
+  border: none;
+  -webkit-appearance: none;
+  border-radius: 5px;
+  margin: 0;
+  line-height: 1.4;
+  outline: none;
+  cursor: pointer;
+  box-shadow: 0 3px 0 #239A32;
+}
+
+section {
+  @include flex(1);
+  @include flexbox;
+  @include flex-flow(row nowrap);
+  @include align-items(stretch);
+  background: #fafafa;
+}
+
+#filters {
+  @include flex(0 0 320px);
+  padding: 20px;
+  
+  .slider-holder {
+    padding: 5px 12px 25px 12px;
+  }
+}
+
+#map {
+  @include flex(1);
+}
+
+form {
+  div.input {
+    margin-bottom: 20px;
+  }
+    
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  div.radios label, div.boolean label {
+    margin-bottom: 5px;
+    line-height: 22px;
+  }
+  
+  input[type=text], input[type=email], input[type=tel], textarea {
+    width: 100%;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    padding: 5px 10px;
+  }
+  
+  textarea {
+    height: 120px;
+  }
+  
+  select {
+    width: 100%;
+    font-size: 16px;
+  }
+  
+  abbr {
+    float: right;
+    visibility: hidden;
+    
+    &:after {
+      content: "Required";
+      visibility: visible;
+      font-size: 10px;
+      color: #EFC2C0;
+    }
+  }
+  
+  .iradio_flat-blue, .icheckbox_flat-blue {
+    margin-right: 10px;
+  }
+  
+  .photos {
+    margin-bottom: 30px;
+    
+    .input {
+      margin: 10px 0;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    .add {
+      color: #0074D9;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+  }
+  
+  .hint {
+    display: block;
+    font-size: 12px;
+    color: #999;
+    margin-top: 5px;
+  }
+}
+
+#new_space, .thanks {
+  width: 500px;
+  margin: 40px auto;
+  background: white;
+  padding: 20px;
+}
+
+.thanks {
+  height: auto;
+  p {
+    margin: 20px 0;
+  }
+}
+
+
+
+@media (max-width: 600px) {
+  section {
+    @include flex-flow(column nowrap);
+  }
+  
+  #map {
+    @include flex(0 0 500px);
+  }
+}

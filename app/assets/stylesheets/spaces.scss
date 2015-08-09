@@ -78,6 +78,22 @@ section {
   @include flex(1);
 }
 
+.popup {
+  .leaflet-popup-content {
+    padding: 5px 10px 5px 10px;
+  }
+  
+  .image {
+    padding-top: 5px;
+  }
+  
+  h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 5px 0;
+  }
+}
+
 form {
   div.input {
     margin-bottom: 20px;

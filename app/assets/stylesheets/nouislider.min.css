@@ -34,6 +34,17 @@
 	position: relative;
 	z-index: 1;
 }
+.noUi-handle div {
+	position: absolute;
+	top: 24px;
+	left: -24px;
+	text-align: center;
+	width: 60px;
+	font-size: 12px;
+	color: #999;
+}
+
+
 .noUi-stacking .noUi-handle {
 /* This class is applied to the lower origin when
    its values is > 50%. */

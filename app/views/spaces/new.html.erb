@@ -7,6 +7,7 @@
   <div class="space">
     <%= form.input :name, label: "Name of space", placeholder: "Acme Company" %>
     <%= form.input :address, label: "Address", placeholder: "123 Example Street" %>
+    <%= form.input :postcode, label: "Address", placeholder: "123 Example Street" %>
     <%= form.input :price_in_pounds, label: "Price per person per month", placeholder: "£200" %>
     <%= form.input :desk_type, label: "Type of desk space", as: :radio_buttons, collection: { "Fixed / Permanent" => "fixed", "Hot desking" => "hotdesk" } %>
     <%= form.input :has_full_access, label: "Space has 24/7 access" %>

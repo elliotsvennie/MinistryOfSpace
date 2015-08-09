@@ -2,7 +2,7 @@ class Space < ActiveRecord::Base
   
   has_many :photos
   
-  geocoded_by :address
+  geocoded_by :address_with_postcode
   after_validation :geocode
   
   acts_as_url :name, url_attribute: :slug, blacklist: ["add"]
@@ -22,6 +22,10 @@ class Space < ActiveRecord::Base
   
   def to_param
     slug
+  end
+  
+  def address_with_postcode
+    [address, postcode].compact.join("\n")
   end
   
   accepts_nested_attributes_for :photos, 
@@ -50,4 +54,12 @@ class Space < ActiveRecord::Base
     end
   end
   
+  def as_json(options={})
+    super(only: [:name, :slug, :latitude, :longitude],
+      :include => {
+        :photos => {:only => [:photo]}
+      }
+    )
+  end
+    
 end

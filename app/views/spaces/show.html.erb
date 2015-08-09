@@ -15,7 +15,7 @@
     <div class="info">
       <h1><%= @space.name %></h1>
 
-      <%= simple_format @space.address %>
+      <%= simple_format @space.address_with_postcode %>
       
       <% if @space.description.present? %>
         <%= simple_format @space.description %>
@@ -39,7 +39,7 @@
       <p><span>Tel:</span> <%= @space.phone_number %></p>
       <p><span>Email:</span> <%= mail_to @space.email %></p>
       <% if @space.twitter.present? %>
-      <p><span>Twitter:</span> <%= link_to "@" + @space.twitter, "http://www.twitter.com/" + @space.twitter %></p>
+      <p><span>Twitter:</span> <%= link_to "@" + @space.twitter, "http://www.twitter.com/" + @space.twitters s %></p>
       <% end %>
     </div>
   </div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150804102300) do
+ActiveRecord::Schema.define(version: 20150809123455) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20150804102300) do
     t.string   "twitter"
     t.boolean  "has_full_access", default: false
     t.text     "description"
+    t.string   "postcode"
   end
 
 end

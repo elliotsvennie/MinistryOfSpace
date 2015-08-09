@@ -8,16 +8,28 @@ $(document).ready(function () {
   });
   
   function createMarker(space) {
+    
+    var title = "";
+    if (space.photos.length > 0) {
+      title += "<div class=image><img src=\"" + space.photos[0].photo.url + "\" width=\"400\"></div>";
+    }
+    
+    title += "<h3>" + space.name + "</h3>";
+    
+    console.log(title);
+    
     var marker = L.marker(new L.LatLng(space.latitude, space.longitude), {
       icon: L.mapbox.marker.icon({
         'marker-symbol': 'building', 
         'marker-color': '1176d6'
-      }),
-      title: space.name
+      })
     });
     
-    marker.bindPopup(space.name, {
-      closeButton: false
+    marker.bindPopup(title, {
+      closeButton: false,
+      minWidth: 200,
+      maxWidth: 200,
+      className: "popup"
     }).on('mouseover', function (e) {
       this.openPopup();
     }).on('mouseout', function (e) {
@@ -76,28 +88,39 @@ $(document).ready(function () {
     
     noUiSlider.create(slider, {
       start: [min, max],
-      step: 100,
+      step: 1,
       margin: 100,
       connect: true,
       range: {
         'min': 0,
         'max': 800
-      },
-      pips: {
-		    mode: 'steps',
-		    density: 12.5,
-        filter: function () { return 2; },
-        format: wNumb({
-    			decimals: 0,
-    			prefix: '£'
-    		})
-	    }
+      }//,
+      // pips: {
+		  //   mode: 'steps',
+		  //   density: 12.5,
+      //   filter: function () { return 2; },
+      //   format: wNumb({
+    	// 		decimals: 0,
+    	// 		prefix: '£'
+    	// 	})
+	    // }
     });
+    
+    var tipHandles = slider.getElementsByClassName('noUi-handle'),
+    tooltips = [];
+
+    // Add divs to the slider handles.
+    for ( var i = 0; i < tipHandles.length; i++ ){
+    	tooltips[i] = document.createElement('div');
+    	tipHandles[i].appendChild(tooltips[i]);
+    }
         
-    slider.noUiSlider.on('set', function(vals) {
+    slider.noUiSlider.on('update', function(vals) {
       minEl.val(vals[0]);
       maxEl.val(vals[1]);
-    });
+      tooltips[0].innerHTML = "£" + parseInt(vals[0], 10);
+      tooltips[1].innerHTML = "£" + parseInt(vals[1], 10);
+    });    
   }
   
   if ($("form .photos").length > 0) {

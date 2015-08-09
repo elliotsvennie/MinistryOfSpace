@@ -13,6 +13,7 @@ class Space < ActiveRecord::Base
   
   validates :name, presence: true
   validates :address, presence: true
+  validates :postcode, presence: true
   validates :email, presence: true
   validates :phone_number, presence: true
   validates :price_in_pounds, presence: true

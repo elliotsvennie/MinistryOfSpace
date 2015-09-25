@@ -1,6 +1,9 @@
 <% content_for :page_title do %>
   Rent a desk at <%= @space.name %>
 <% end %>
+<% content_for :nav do %>
+  <%= link_to "Add your desk space", new_space_path, class: "button" %>
+<% end %>
 
 <div class="show">
   

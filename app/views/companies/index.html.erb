@@ -1,0 +1,16 @@
+<% content_for :page_title, "Looking for space in #{@city.name}" %>
+<% content_for :nav do %>
+  <%= link_to "Add your company", new_company_path, class: "button" %>
+<% end %>
+
+<div class="looking">
+  <h2>Companies looking for space</h2>
+  <% @companies.each do |company| %>
+    <div class="company">
+      <a href="mailto:hello@deskspac.es?subject=Advert #<%= company.id %>">
+        <strong><%= company.display_name %> is looking for a space <% if company.where.present? %>near <%= company.where %> <% end %><% if company.how_many.present? %> for <%= pluralize company.how_many, "person" %><% end %></strong>
+        Added <%= time_ago_in_words company.created_at %> ago
+      </a>
+    </div>  
+  <% end %>  
+</div>

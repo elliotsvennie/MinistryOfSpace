@@ -72,6 +72,20 @@ section {
   .slider-holder {
     padding: 5px 12px 25px 12px;
   }
+  
+  .whos-looking {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: #ddd;
+    color: #666;
+    width: 320px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 20px 80px;
+    text-decoration: none;
+  }
 }
 
 #map {
@@ -169,11 +183,48 @@ form {
   }
 }
 
-#new_space, .thanks {
+#new_space, #new_company, .thanks {
   width: 500px;
   margin: 40px auto;
   background: white;
   padding: 20px;
+}
+
+.looking {
+  width: 500px;
+  margin: 40px auto;
+  background: white;
+  
+  h2 {
+    padding: 10px 20px;
+    background: #1e7bd4;
+    color: white;
+    font-weight: 700;
+  }
+  
+  
+  div.company {
+    
+    a {
+      display: block;
+      padding: 20px;
+      text-decoration: none;
+      font-size: 13px;
+    }
+    
+    &:nth-child(even) {
+      background: #E3F6FE;
+    }
+    
+    strong {
+      display: block;
+      font-size: 24px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 2px;
+    }
+  }
+
 }
 
 .thanks {
@@ -309,6 +360,7 @@ a {
     }
   }
 }
+
 
 @media (max-width: 980px) {
   .show {

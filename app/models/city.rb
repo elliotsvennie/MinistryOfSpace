@@ -1,6 +1,7 @@
 class City < ActiveRecord::Base
   
   has_many :spaces
+  has_many :companies
   
   acts_as_url :name, url_attribute: :slug, blacklist: ["add"]
   

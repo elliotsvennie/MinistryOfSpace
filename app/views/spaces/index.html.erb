@@ -1,6 +1,10 @@
 <% content_for :page_title do %>
   Rent a desk
 <% end %>
+<% content_for :nav do %>
+  <%= link_to "Add your desk space", new_space_path, class: "button" %>
+<% end %>
+
 
 <div id="filters">
   <form action="<%= spaces_path(city: @city.slug) %>" method="get">
@@ -22,6 +26,10 @@
     
     <input type="submit" value="Filter spaces" class="button">
   </form>  
+  
+  <%= link_to companies_path, class: "whos-looking" do %>
+    Looking for space for 5+ people?
+  <% end %>
 </div>
 
 <script>

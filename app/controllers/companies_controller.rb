@@ -3,7 +3,7 @@ class CompaniesController < ApplicationController
   before_action :get_city
   
   def index
-    @companies = Company.where("created_at > ? and is_verified = ?", 30.days.ago, true).order("created_at desc")
+    @companies = @city.companies.where("is_verified = ?", true).order("created_at desc")
   end
 
   def new

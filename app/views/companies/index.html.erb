@@ -8,8 +8,9 @@
   <% @companies.each do |company| %>
     <div class="company">
       <a href="mailto:hello@deskspac.es?subject=Advert #<%= company.id %>">
-        <strong><%= company.display_name %> is looking for a space <% if company.where.present? %>near <%= company.where %> <% end %><% if company.how_many.present? %> for <%= pluralize company.how_many, "person" %><% end %></strong>
-        Added <%= time_ago_in_words company.created_at %> ago
+        <h3><span><%= company.display_name %></span> is looking for <%= company.looking_for.to_sentence(two_words_connector: " or ") %> <% if company.where.present? %>near <%= company.where %> <% end %><% if company.how_many.present? %> for <%= pluralize company.how_many, "person" %><% end %>.</h3>
+        <h4>Lease: <%= company.how_long %> starting <%= company.when %></h4>
+        <p>Added <%= time_ago_in_words company.created_at %> ago &middot; click to respond to request</p>
       </a>
     </div>  
   <% end %>  

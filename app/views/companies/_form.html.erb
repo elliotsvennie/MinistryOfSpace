@@ -1,0 +1,26 @@
+<%= content_for :page_title, "Add yourself" %>
+
+<%= simple_form_for @company do |form| %>
+
+  <%= form.input :company_name, label: "Company name" %>
+  <%= form.input :stay_anonymous, label: "Keep company name anonymous" %>
+  
+  <%= form.input :contact_name, label: "Your name" %>
+  <%= form.input :email, label: "Your email address", hint: "This will remain hidden on the website, we will use this to contact you" %>
+  
+  <%= form.input :where, label: "Where are you looking?", hint: "Leave blank if unsure" %>
+  <%= form.input :how_many, label: "How many people will need desks?", as: :string %>
+
+  <%= form.input :how_much, label: "How much per person?", as: :string %>
+  
+  <%= form.input :is_private, label: "Looking for private office" %>
+  <%= form.input :is_open_office, label: "Looking for open plan office" %>
+  <%= form.input :is_co_working, label: "Looking for co-working space" %>
+  <%= form.input :is_shared_office, label: "Looking for shared office space" %>
+  
+  <%= form.input :how_long, label: "How long would you like the lease to be?" %>
+  <%= form.input :when, label: "When would you like the lease to start?" %>
+  
+  <%= form.button :submit, "Go", class: "button" %>
+
+<% end %>

@@ -4,14 +4,18 @@
 <% end %>
 
 <div class="looking">
-  <h2>Companies looking for space</h2>
-  <% @companies.each do |company| %>
-    <div class="company">
-      <a href="mailto:hello@deskspac.es?subject=Advert #<%= company.id %>">
-        <h3><span><%= company.display_name %></span> is looking for <%= company.looking_for.to_sentence(two_words_connector: " or ") %> <% if company.where.present? %>near <%= company.where %> <% end %><% if company.how_many.present? %> for <%= pluralize company.how_many, "person" %><% end %>.</h3>
-        <h4>Lease: <%= company.how_long %> starting <%= company.when %></h4>
-        <p>Added <%= time_ago_in_words company.created_at %> ago &middot; click to respond to request</p>
-      </a>
-    </div>  
-  <% end %>  
+  <% if @companies.any? %>
+    <h2>Companies looking for space</h2>
+    <% @companies.each do |company| %>
+      <div class="company">
+        <a href="mailto:hello@deskspac.es?subject=Advert #<%= company.id %>">
+          <h3><span><%= company.display_name %></span> is looking for <%= company.looking_for.to_sentence(two_words_connector: " or ") %> <% if company.where.present? %>near <%= company.where %> <% end %><% if company.how_many.present? %> for <%= pluralize company.how_many, "person" %><% end %>.</h3>
+          <h4>Lease: <%= company.how_long %> starting <%= company.when %></h4>
+          <p>Added <%= time_ago_in_words company.created_at %> ago &middot; click to respond to request</p>
+        </a>
+      </div>  
+    <% end %>  
+  <% end %>
+  <h2>Add what you're looking for and we'll share with all the co-working spaces and property owners we know (you can remain anonymous!)</h2>
+  <%= render "form" %>
 </div>

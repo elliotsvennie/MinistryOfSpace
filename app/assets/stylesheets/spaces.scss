@@ -193,7 +193,7 @@ form {
   }
 }
 
-#new_space, #new_company, .thanks {
+#new_space, div.new_company, .thanks {
   width: 500px;
   margin: 40px auto;
   background: white;
@@ -244,6 +244,9 @@ form {
     }
   }
 
+  form {
+    padding: 20px 20px 40px;
+  }
 }
 
 .thanks {

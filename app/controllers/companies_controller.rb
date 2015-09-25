@@ -4,6 +4,8 @@ class CompaniesController < ApplicationController
   
   def index
     @companies = @city.companies.where("is_verified = ?", true).order("created_at desc")
+    @company = @city.companies.new
+
   end
 
   def new

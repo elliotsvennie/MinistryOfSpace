@@ -1,17 +1,19 @@
 ActiveAdmin.register Space do
   
-  
-  permit_params :name, :address, :latitude, :longitude, :price_in_pounds, 
+  permit_params :city_id, :name, :address, :latitude, :longitude, 
+    :fixed_desk_price_in_full, :hot_desk_price_in_full,
     :desk_type, :has_full_access, :description, :phone_number, :email, 
-    :twitter, :is_verified,
+    :twitter, :is_verified, :postcode,
     photos_attributes: [:id, :photo, :photo_cache, :rank, :_destroy]
   
   index do
     selectable_column
     id_column
+    column :city
     column :name
     column :address
-    column :price_in_pounds
+    column :fixed_desk_price_in_full
+    column :hot_desk_price_in_full
     column :email
     column :phone_number
     column :is_verified
@@ -20,12 +22,15 @@ ActiveAdmin.register Space do
   end
   
   form do |f|
+    f.semantic_errors
     f.inputs do
+      f.input :city
       f.input :name
       f.input :address
-      f.input :desk_type, collection: { "Fixed / Permanent" => "fixed", "Hot desking" => "hotdesk" } 
+      f.input :postcode
       f.input :has_full_access, label: "has 24/7 access"
-      f.input :price_in_pounds
+      f.input :fixed_desk_price_in_full, label: "Fixed desk price", hint: "no units, e.g. 450"
+      f.input :hot_desk_price_in_full, label: "Hot desk price", hint: "no units, e.g. 250"
       f.input :description
       f.input :is_verified
     end
@@ -37,8 +42,10 @@ ActiveAdmin.register Space do
     f.inputs do
       f.has_many :photos, sortable: :rank do |pf|
         # photos
+        pf.input :id, as: :hidden
         pf.input :photo, hint: pf.object.photo.present? ? image_tag(pf.object.photo.url(:thumb)) : content_tag(:span, "no image yet")
         pf.input :photo_cache, as: :hidden
+        pf.input :_destroy, label: "Delete photo", as: :boolean
       end
     end
     f.actions
@@ -48,11 +55,5 @@ ActiveAdmin.register Space do
     defaults :finder => :find_by_slug
   end
   
-  batch_action :verify do |ids|
-    batch_action_collection.find(ids).each do |space|
-      space.update(is_verified: true)
-    end
-    redirect_to collection_path, alert: "The spaces have been verified."
-  end
-  
 end
+

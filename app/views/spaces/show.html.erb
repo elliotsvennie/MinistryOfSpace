@@ -27,14 +27,19 @@
 
   <div class="details">
     <div id="map_detail" data-lat="<%= @space.latitude %>" data-lng="<%= @space.longitude %>"></div>   
-
-
     
-
     <div class="price">
-      <%= quid @space.price_in_pounds %> <span>per desk per month</span>
+      <% if @space.fixed_desk_price_in_full.present? %>
+        <h4>Fixed desks</h4>
+        <%= currency @space.fixed_desk_price_in_full, @city.currency_unit %> 
+        <span>per desk per month</span>
+      <% end %>
+      <% if @space.hot_desk_price_in_full.present? %>
+        <h4>Hotdesks</h4>
+        <%= currency @space.hot_desk_price_in_full, @city.currency_unit %> <span>per desk per month</span>
+      <% end %>
     </div>
-    
+
     <div class="contact">
       <p><span>Tel:</span> <%= @space.phone_number %></p>
       <p><span>Email:</span> <%= mail_to @space.email %></p>

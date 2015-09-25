@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150809123455) do
+ActiveRecord::Schema.define(version: 20150925144508) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -46,6 +46,17 @@ ActiveRecord::Schema.define(version: 20150809123455) do
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
 
+  create_table "cities", force: :cascade do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.string   "currency_unit"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.integer  "max_price_per_month"
+  end
+
   create_table "photos", force: :cascade do |t|
     t.integer  "space_id"
     t.string   "photo"
@@ -60,18 +71,20 @@ ActiveRecord::Schema.define(version: 20150809123455) do
     t.text     "address"
     t.float    "latitude"
     t.float    "longitude"
-    t.integer  "price_in_pence"
+    t.integer  "fixed_desk_price_in_base"
     t.string   "phone_number"
     t.string   "email"
-    t.boolean  "is_verified",     default: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.boolean  "is_verified",              default: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.string   "desk_type"
     t.boolean  "meeting_room"
     t.string   "twitter"
-    t.boolean  "has_full_access", default: false
+    t.boolean  "has_full_access",          default: false
     t.text     "description"
     t.string   "postcode"
+    t.integer  "city_id"
+    t.integer  "hot_desk_price_in_base"
   end
 
 end

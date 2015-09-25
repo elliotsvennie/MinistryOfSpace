@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+    
+  scope ':city' do
+    resources :spaces, path: "", only: [:index, :show, :new, :create], path_names: { new: 'add' }
+  end
   
-  get "add", to: "spaces#new", as: "new_space"
-  post "add", to: "spaces#create"
-  get ":slug", to: "spaces#show", as: "space"
-  root to: "spaces#index"
+  root to: "cities#index"
 end

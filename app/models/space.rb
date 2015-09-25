@@ -1,13 +1,14 @@
 class Space < ActiveRecord::Base
-  
+    
+  belongs_to :city
   has_many :photos
   
   geocoded_by :address_with_postcode
   after_validation :geocode
   
-  acts_as_url :name, url_attribute: :slug, blacklist: ["add"]
+  acts_as_url :name, url_attribute: :slug, blacklist: ["add", "new", "edit"]
   
-  attr_accessor :price_in_pounds
+  attr_accessor :fixed_desk_price_in_full, :hot_desk_price_in_full
   
   before_validation :clean_twitter_handle
   
@@ -16,8 +17,6 @@ class Space < ActiveRecord::Base
   validates :postcode, presence: true
   validates :email, presence: true
   validates :phone_number, presence: true
-  validates :price_in_pounds, presence: true
-  validates :desk_type, presence: true, inclusion: %w{fixed hotdesk}
   
   scope :list, ->{ where(is_verified: true) }
   
@@ -33,17 +32,33 @@ class Space < ActiveRecord::Base
     reject_if: proc { |a| a["photo"].blank? },
     allow_destroy: true
     
-  def price_in_pounds
-    if price_in_pence.present?
-      price_in_pence / 100.0
+  def fixed_desk_price_in_full
+    if fixed_desk_price_in_base.present?
+      fixed_desk_price_in_base / 100.0
     else
       nil
     end
   end
   
-  def price_in_pounds=(pounds)
+  def fixed_desk_price_in_full=(pounds)
     if pounds.present?
-      self.price_in_pence = (pounds.gsub(/[^0-9\.\-]/, '').to_f * 100).to_i
+      self.fixed_desk_price_in_base = (pounds.gsub(/[^0-9\.\-]/, '').to_f * 100).to_i
+    else
+      nil
+    end
+  end
+  
+  def hot_desk_price_in_full
+    if hot_desk_price_in_base.present?
+      hot_desk_price_in_base / 100.0
+    else
+      nil
+    end
+  end
+  
+  def hot_desk_price_in_full=(pounds)
+    if pounds.present?
+      self.hot_desk_price_in_base = (pounds.gsub(/[^0-9\.\-]/, '').to_f * 100).to_i
     else
       nil
     end

@@ -15,9 +15,7 @@ $(document).ready(function () {
     }
     
     title += "<h3>" + space.name + "</h3>";
-    
-    console.log(title);
-    
+        
     var marker = L.marker(new L.LatLng(space.latitude, space.longitude), {
       icon: L.mapbox.marker.icon({
         'marker-symbol': 'building', 
@@ -35,7 +33,7 @@ $(document).ready(function () {
     }).on('mouseout', function (e) {
       this.closePopup();
     }).on("click", function () {
-      window.open("/" + space.slug);
+      window.open("/" + city.slug + "/" + space.slug);
     });
     
     return marker;
@@ -43,7 +41,7 @@ $(document).ready(function () {
   
   if ($("#map").length > 0) {
     var map = L.mapbox.map('map')
-              .setView([51.50722, -0.12750], 12)
+              .setView([city.latitude, city.longitude], 12)
               .addLayer(L.mapbox.tileLayer(mapId));
               
     var markers = new L.MarkerClusterGroup();
@@ -68,8 +66,7 @@ $(document).ready(function () {
       icon: L.mapbox.marker.icon({
         'marker-symbol': 'building', 
         'marker-color': '1176d6'
-      }),
-      title: "hi"
+      })
     });
     
     map.addLayer(marker);
@@ -84,7 +81,7 @@ $(document).ready(function () {
     var minEl = $('input[name=min_price]');
     var maxEl = $('input[name=max_price]'); 
     var min = minEl.val() || 0;
-    var max = maxEl.val() || 800;
+    var max = maxEl.val() || city.max_price_per_month;
     
     noUiSlider.create(slider, {
       start: [min, max],
@@ -93,7 +90,7 @@ $(document).ready(function () {
       connect: true,
       range: {
         'min': 0,
-        'max': 800
+        'max': city.max_price_per_month
       }//,
       // pips: {
 		  //   mode: 'steps',
@@ -118,8 +115,8 @@ $(document).ready(function () {
     slider.noUiSlider.on('update', function(vals) {
       minEl.val(vals[0]);
       maxEl.val(vals[1]);
-      tooltips[0].innerHTML = "£" + parseInt(vals[0], 10);
-      tooltips[1].innerHTML = "£" + parseInt(vals[1], 10);
+      tooltips[0].innerHTML = city.currency_unit + parseInt(vals[0], 10);
+      tooltips[1].innerHTML = city.currency_unit + parseInt(vals[1], 10);
     });    
   }
   
@@ -141,5 +138,13 @@ $(document).ready(function () {
       return "<div style='background-image: url(" + $(".slick-slide").eq(i).data("thumb") + ")'></div>";
     }
   });
+  
+  $("input#space_fixed_desk_price_in_full").on("keyup", function () {
+    $(".if-fixed").toggle($(this).val() !== "");
+  }).trigger("keyup");
+  
+  $("input[value=hotdesk]").on("ifToggled", function () {
+    $(".if-fixed").toggle(!$(this).is(":checked"));
+  }).trigger("ifToggled");
 
 });

@@ -3,7 +3,7 @@
 <% end %>
 
 <div id="filters">
-  <form action="<%= root_path %>" method="get">
+  <form action="<%= spaces_path(city: @city.slug) %>" method="get">
     <div class="input">
       <label>Price per month</label>
       <div class="slider-holder">
@@ -13,11 +13,10 @@
       <input type="hidden" name="max_price" value="<%= params[:max_price] %>">
     </div>
     <div class="input radios">
-      <label><input type="radio" name="desk_type" value="" <% if params[:desk_type].blank? %>checked<% end %>>All desk types</label>
-      <label><input type="radio" name="desk_type" value="fixed" <% if params[:desk_type] == "fixed" %>checked<% end %>>Fixed / Permanent</label>
-      <label><input type="radio" name="desk_type" value="hotdesk" <% if params[:desk_type] == "hotdesk" %>checked<% end %>>Hot desk</label>
+      <label><input type="radio" name="desk_type" value="" <% if params[:desk_type].blank? %>checked<% end %>>Fixed / Permanent desks</label>
+      <label><input type="radio" name="desk_type" value="hotdesk" <% if params[:desk_type] == "hotdesk" %>checked<% end %>>Hot desks</label>
     </div>
-    <div class="input boolean">
+    <div class="input boolean if-fixed">
       <label><input type="checkbox" name="has_full_access" value="1" <% if params[:has_full_access] == "1" %>checked<% end %>>Only 24/7 access</label>
     </div>
     
@@ -26,6 +25,7 @@
 </div>
 
 <script>
+  var city = <%= @city.to_json.html_safe %>;
   var spaces = <%= @spaces.to_json.html_safe %>;
 </script>
 

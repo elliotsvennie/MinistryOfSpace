@@ -54,7 +54,7 @@ class SpacesController < ApplicationController
   
   def space_attributes
     params.require(:space).permit(
-      :name, :address, :postcode, :price_in_pounds, :desk_type, 
+      :name, :address, :postcode, :fixed_desk_price_in_base, :hot_desk_price_in_base, 
       :has_full_access, :description, :phone_number, :email, :twitter,
       photos_attributes: [:photo, :rank]
     )
